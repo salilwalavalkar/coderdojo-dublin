@@ -7,7 +7,7 @@ from robot import *
 
 turn_on()
 
-message("Robot Police!!")
+message('Robot Police!!')
 
 #while(RUNNING):
 for r in range(0, 10):
@@ -15,7 +15,7 @@ for r in range(0, 10):
 
     # get distance
     value = distance()
-    message("Distance: " + str(value) + "cm", row = 2)
+    message(f'Distance: {value} cm', row = 2)
 
     # siren sound and lights
     lights_on(BLUE)
@@ -27,13 +27,13 @@ lights_off()
 
 # spin the robot
 #clear_message()
-#message("Spinning...")
-#message("...........", row = 2)
+#message('Spinning...')
+#message('...........', row = 2)
 #spin()
 #wait(2)
 
 clear_message()
-message("Shutting Down!!")
+message('Shutting Down!!')
 wait(2)
 
 turn_off()
