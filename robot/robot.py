@@ -4,7 +4,6 @@
 
 import time
 from machine import Pin, PWM, I2C
-from evdev_uart import Evdev
 
 from pico_car import SSD1306_I2C, pico_car, ws2812b, ultrasonic
 
@@ -45,12 +44,10 @@ def turn_on():
     """
     Initialise the robot rotors
     """
-    global joystick_events, rotors, buzzer, ultrasound, display, lights
+    global rotors, buzzer, ultrasound, display, lights
 
     rotors = pico_car()
     stop()
-
-    joystick_events = Evdev(handle_joystick)
 
     buzzer = PWM(Pin(22))
     buzzer.freq(1000)
@@ -79,7 +76,6 @@ def use_joystick():
     """
     Use the joystick to control the robot
     """
-    joystick_events.loop()
 
 
 # ROTORS ----------------------------------------------------------------------
@@ -145,46 +141,6 @@ def spin():
     """
     left(150)
     wait(1)
-
-def handle_joystick(evdev_type, evdev_code, evdev_value):
-    """
-    Handle joystick events
-    
-    Parameters
-    ----------
-    evdev_type : int
-        The type of event
-    evdev_code : int
-        The code of the event
-    evdev_value : int
-        The value of the event
-    """
-    # print( "Joystick event code was: " + str(evdev_code))
-    # print( "Joystick event value was: " + str(evdev_value))
-
-    if( evdev_code == 706 and evdev_value == 1):
-        forward(250)
-
-    elif( evdev_code == 706 and evdev_value == 0):
-        stop()
-        
-    if( evdev_code == 704 and evdev_value == 1):
-        right(150)
-
-    elif( evdev_code == 704 and evdev_value == 0):
-        stop()
-        
-    if( evdev_code == 705 and evdev_value == 1):
-        left(150)
-
-    elif( evdev_code == 705 and evdev_value == 0):
-        stop()
-        
-    if( evdev_code == 707 and evdev_value == 1):
-        backwards(100)
-
-    elif( evdev_code == 707 and evdev_value == 0):
-        stop()
 
 
 # BUZZER ----------------------------------------------------------------------
